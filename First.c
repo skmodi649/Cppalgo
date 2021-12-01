@@ -8,7 +8,7 @@ int main()
 {
     int n;
     int *arr;
-    printf("Enter the number of players in the event");
+    printf("Enter the number of players in the event : \n");
     scanf("%d",&n);
     printf("Enter the scores of the players : \n");
 
