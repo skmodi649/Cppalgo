@@ -5,17 +5,36 @@
 
 #define V 4
 
+
+int min(int x, int y)
+{
+  return (x < y) ? x : y;
+}
+
 // implementation of traveling Salesman Problem
 int travllingSalesmanProblem(int graph[][V], int s)
 {
 	// store all vertex apart from source vertex
-	vector<int> vertex;
+	int v = 0;
 	for (int i = 0; i < V; i++)
 		if (i != s)
-			vertex.push_back(i);
+			v++;
+
+    int *arr;
+	arr = (int *)malloc(sizeof(int)*v);
+
+	int c = 0;
+
+	for (int i = 0; i < V; i++){
+		if (i != s){
+			arr[c] = i;
+			c++;
+		}
+	}
+
 
 	// store minimum weight Hamiltonian Cycle.
-	int min_path = INT_MAX;
+	int min_path = -99999;
 	do {
 
 		// store current Path weight(cost)
@@ -23,9 +42,9 @@ int travllingSalesmanProblem(int graph[][V], int s)
 
 		// compute current path weight
 		int k = s;
-		for (int i = 0; i < vertex.size(); i++) {
-			current_pathweight += graph[k][vertex[i]];
-			k = vertex[i];
+		for (int i = 0; i < v; i++) {
+			current_pathweight += graph[k][arr[i]];
+			k = arr[i];
 		}
 		current_pathweight += graph[k][s];
 
@@ -33,7 +52,7 @@ int travllingSalesmanProblem(int graph[][V], int s)
 		min_path = min(min_path, current_pathweight);
 
 	} while (
-		next_permutation(vertex.begin(), vertex.end()));
+		next_permutation(0, v-1));
 
 	return min_path;
 }
@@ -47,6 +66,6 @@ int main()
 					{ 15, 35, 0, 30 },
 					{ 20, 25, 30, 0 } };
 	int s = 0;
-	cout << travllingSalesmanProblem(graph, s) << endl;
+	printf(travllingSalesmanProblem(graph, s));
 	return 0;
 }
