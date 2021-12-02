@@ -127,6 +127,7 @@ int LineIntersection(int l1x1, int l1y1, int l1x2, int l1y2,
         *intersection_Y = *m1 * *intersection_X + *c1;
 
     }
+    return 1;
 
 }
 
@@ -224,13 +225,13 @@ int main()
 
     
 
-    scanf("%f %f", &l1x1, &l1y1);
+    scanf("%d %d", &l1x1, &l1y1);
 
-    scanf("%f %f", &l1x2,&l1y2);
+    scanf("%d %d", &l1x2,&l1y2);
 
-    scanf("%f %f", &l2x1,&l2y1);
+    scanf("%d %d", &l2x1,&l2y1);
  
-    scanf("%f %f", &l2x2, &l2y2);
+    scanf("%d %d", &l2x2, &l2y2);
 
  
 
