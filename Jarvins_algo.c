@@ -54,7 +54,7 @@ void convexHull(struct Point points[], int n)
 	} while (p != l); // While we don't come to first point
 
 	// Print Result
-	for (int i = 0; i < len-1; i++){
+	for (int i = 0; i < len; i++){
 		printf("%d %d",hull[i].x,hull[i].y);
 		printf("\n");
 	}
