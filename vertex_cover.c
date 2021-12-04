@@ -1,80 +1,114 @@
-// Program to print Vertex Cover of a given undirected graph 
+// C program to find the optimal vertex cover using the binary search method
 #include<stdio.h>
 #include<stdlib.h>
+#include<stdbool.h> 
+#define maxn 25 
+   
+  
+bool gr[maxn][maxn]; 
   
 
-class Graph 
+bool isCover(int V, int k, int E) 
 { 
-    int V;    // No. of vertices 
-    list<int> *adj;  // Pointer to an array containing adjacency lists 
-public: 
-    Graph(int V);  // Constructor 
-    void addEdge(int v, int w); // function to add an edge to graph 
-    void printVertexCover();  // prints vertex cover 
-}; 
+   
+    int set = (1 << k) - 1; 
   
-Graph::Graph(int V) 
-{ 
-    this->V = V; 
-    adj = new list<int>[V]; 
-} 
-  
-void Graph::addEdge(int v, int w) 
-{ 
-    adj[v].push_back(w); // Add w to v’s list. 
-    adj[w].push_back(v); // Since the graph is undirected 
-} 
-  
-// The function to print vertex cover 
-void Graph::printVertexCover() 
-{ 
-    // Initialize all vertices as not visited. 
-    bool visited[V]; 
-    for (int i=0; i<V; i++) 
-        visited[i] = false; 
-  
-    list<int>::iterator i; 
+    int limit = (1 << V); 
   
    
-    for (int u=0; u<V; u++) 
+    bool vis[maxn][maxn]; 
+  
+    while (set < limit) 
     { 
-         
-        if (visited[u] == false) 
+       
+        memset(vis, 0, sizeof vis); 
+  
+        
+        int cnt = 0; 
+  
+     
+        for (int j = 1, v = 1 ; j < limit ; j = j << 1, v++) 
         { 
-            
-            for (i= adj[u].begin(); i != adj[u].end(); ++i) 
+            if (set & j) 
             { 
-                int v = *i; 
-                if (visited[v] == false) 
+               
+                for (int k = 1 ; k <= V ; k++) 
                 { 
-                     
-                     visited[v] = true; 
-                     visited[u]  = true; 
-                     break; 
+                    if (gr[v][k] && !vis[v][k]) 
+                    { 
+                        vis[v][k] = 1; 
+                        vis[k][v] = 1; 
+                        cnt++; 
+                    } 
                 } 
             } 
         } 
-    } 
+   
+        if (cnt == E) 
+            return true; 
   
-    // Print the vertex cover 
-    for (int i=0; i<V; i++) 
-        if (visited[i]) 
-          cout << i << " "; 
+      
+        int c = set & -set; 
+        int r = set + c; 
+        set = (((r^set) >> 2) / c) | r; 
+    } 
+    return false; 
 } 
   
-// Driver program to test methods of graph class 
+
+int findOptimalCover(int n, int m) 
+{ 
+   
+    int left = 1, right = n; 
+    while (right > left) 
+    { 
+        int mid = (left + right) >> 1; 
+        if (isCover(n, mid, m) == false) 
+            left = mid + 1; 
+        else
+            right = mid; 
+    } 
+  
+   
+    return left; 
+} 
+  
+// Inserts an edge in the graph 
+void insertEdge(int u, int v) 
+{ 
+    gr[u][v] = 1; 
+    gr[v][u] = 1;  // Undirected graph 
+} 
+  
+// Driver code 
 int main() 
 { 
-    // Create a graph given in the above diagram 
-    Graph g(7); 
-    g.addEdge(0, 1); 
-    g.addEdge(0, 2); 
-    g.addEdge(1, 3); 
-    g.addEdge(3, 4); 
-    g.addEdge(4, 5); 
-    g.addEdge(5, 6); 
+    
+    int V = 6, E = 6; 
+    insertEdge(1, 2); 
+    insertEdge(2, 3); 
+    insertEdge(1, 3); 
+    insertEdge(1, 4); 
+    insertEdge(1, 5); 
+    insertEdge(1, 6); 
+    cout << "Minimum size of a vertex cover = "
+         << findOptimalCover(V, E) << endl; 
   
-    g.printVertexCover(); 
+  
+    
+    memset(gr, 0, sizeof gr); 
+   
+  
+    V = 6, E = 7; 
+    insertEdge(1, 2); 
+    insertEdge(1, 3); 
+    insertEdge(2, 3); 
+    insertEdge(2, 4); 
+    insertEdge(3, 5); 
+    insertEdge(4, 5); 
+    insertEdge(4, 6); 
+    cout << "Minimum size of a vertex cover = "
+         << findOptimalCover(V, E) << endl; 
   
     return 0; 
 } 
