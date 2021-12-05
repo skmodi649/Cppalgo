@@ -1,52 +1,22 @@
 #include<stdio.h>
 #include<stdlib.h>
  
-int ary[10][10],completed[10],n,cost=0;
+int ary[10][10],completed[10],n,cost=0,value=0;
  
 void takeInput()
 {
-int i,j;
- 
 scanf("%d",&n);
- 
-for(i=0;i < n;i++)
+for(int i=0;i<n;i++)
 {
-for( j=0;j < n;j++)
+for(int j=0;j<n;j++)
+{
 scanf("%d",&ary[i][j]);
- 
+} 
 completed[i]=0;
 }
- 
-for( i=0;i < n;i++)
-{
-printf("\n");
- 
-for(j=0;j < n;j++)
-printf("\t%d",ary[i][j]);
 }
-}
- 
-void mincost(int city)
-{
-int i,ncity;
- 
-completed[city]=1;
- 
-printf("%d--->",city+1);
-ncity=least(city);
- 
-if(ncity==999)
-{
-ncity=0;
-printf("%d",ncity+1);
-cost+=ary[city][ncity];
- 
-return;
-}
- 
-mincost(ncity);
-}
- 
+
+
 int least(int c)
 {
 int i,nc=999;
@@ -68,19 +38,41 @@ cost+=kmin;
  
 return nc;
 }
+
+
  
+void mincost(int city)
+{
+int ncity;
+ 
+completed[city]=1;
+ncity=least(city);
+ 
+if(ncity==999)
+{
+ncity=0;
+value = value + city + 1;
+cost+=ary[city][ncity];
+ 
+return;
+}
+ 
+mincost(ncity);
+}
+ 
+
 int main()
 {
 takeInput();
 int arr[5];
-for(int i = 0 ; i < 5 ; i++)
+for(int i=0;i<5;i++)
 scanf("%d",&arr[i]);
 int sum = 0;
-for(int i = 0 ; i < 5; i++)
+for(int i=0;i<5;i++)
 sum = sum + arr[i];
 mincost(0); //passing 0 because starting vertex
  
-if(sum == cost)
+if(sum == value)
 printf("True");
 else
 printf("False");
