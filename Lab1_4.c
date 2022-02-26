@@ -3,8 +3,8 @@
 #include<string.h>
 void operate(char arr[][80] , int size_of_arr){
     char str[80];
-    int max = -99999;
-    int min = 99999;
+    int max = strlen(arr[0]);
+    int min = strlen(arr[0]);
     int maxi = 0 , mini = 0;
     for(int i = 0 ; i < size_of_arr ; i++){
         if(strlen(arr[i]) > max){
@@ -12,10 +12,10 @@ void operate(char arr[][80] , int size_of_arr){
             maxi = i;
         }
         }
-        for(int i = 0 ; i < size_of_arr ; i++){
-        if(strlen(arr[i]) < min){
-            max = strlen(arr[i]);
-            mini = i;
+        for(int j = 0 ; j < size_of_arr ; j++){
+        if(strlen(arr[j]) < min){
+            max = strlen(arr[j]);
+            mini = j;
         }
         }
         printf("Maximum length word : %s \n",arr[maxi]);
