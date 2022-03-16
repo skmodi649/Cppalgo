@@ -1,20 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define MAX 50
-struct student
+#define MAX 30
+struct stu_data
 {
 int regno;
 int age;
-char Name[MAX];
-char phone[MAX];
-struct student *next;
+char stuName[MAX];
+char phonenum[MAX];
+struct stu_data *next;
 };
-struct student *insert(struct student *front, int id, int new_age,char name[],char phone[],int cage)
+struct stu_data *insert(struct stu_data *front, int id, int new_age,char name[],char phone[],int cage)
 {
 if(cage<5){
-struct student *newnode;
-newnode = (struct student*)malloc(sizeof(struct student));
+struct stu_data *newnode;
+newnode = (struct stu_data*)malloc(sizeof(struct stu_data));
 if (newnode == NULL)
 {
 printf("\n Allocation failed \n");
@@ -117,7 +117,7 @@ char option()
 {
 char choice;
 printf("\n\n>> Enter your choice: ");
-switch(choice=getche())
+switch(choice=getchar())
 {
 case '1':
 case '2':
@@ -132,6 +132,9 @@ return choice;
 /* The main() program begins */
 void main()
 {
+    printf("Name : Suraj Kumar");
+    printf("Registartion Number : 20BCE2835");
+    printf("-----------------------------------------------");
 struct stu_data *linkList;
 char name[21], phone[51];int age;
 char choice;
@@ -172,11 +175,10 @@ break;
 display(linkList);
 break;
 case '4':
-printf("\n\n Enter the student number to be searched: ");
+printf("\n\n Enter the employee number to be searched: ");
 scanf("%d", &sno);
 search(linkList, sno);
 break;
 case '5': break;
 }
 } while (choice != '5');
-}
