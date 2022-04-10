@@ -11,13 +11,13 @@
 // create a 2d array of size 5x5
 //for adjacency matrix to represent graph
 int G[V][V] = {
-  {0, 1, 1, 0, 0, 1, 1},
-  {1, 0, 0, 0, 0, 0, 0},
-  {1, 0, 0, 0, 0, 0, 1},
-  {0, 0, 0, 0, 1, 1, 0},
-  {0, 0, 0, 1, 0, 1, 1},
-  {1, 0, 0, 1, 1, 0, 0},
-  {1, 0, 1, 0, 1, 0, 0}};
+  {0, 3, 6, INF, INF, INF, INF},
+  {3, 0, 2, 4, INF, INF, INF},
+  {6, 2, 0, 1, 4, 2, INF},
+  {INF, 4, 1, 0, 2, 0, 4},
+  {INF, INF, INF, 4, 0, 2, 1},
+  {INF, INF, 2, INF, 2, 0, 1},
+  {INF, INF, INF, 4, 1, 1, 0}};
 
 int main() {
   int no_edge;  // number of edge
